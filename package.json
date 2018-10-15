@@ -1,0 +1,19 @@
+{
+  "name": "reactNews",
+  "version": "1.0.0",
+  "description": "MERN NYT Scraper",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "author": "Michael LeGrange",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "concurrently": "^4.0.1",
+    "express": "^4.16.4",
+    "mongoose": "^5.3.3",
+    "nodemon": "^1.18.4"
+  }
+}
