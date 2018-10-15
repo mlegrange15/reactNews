@@ -5,7 +5,10 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "server": "nodemon server.js"
+    "server": "nodemon server.js",
+    "client": "yarn --cwd client start",
+    "dev": "concurrently \"yarn run client\" \"yarn run server\"",
+    "heroku-postbuild": "cd client && yarn && yarn run build"
   },
   "author": "Michael LeGrange",
   "license": "MIT",
