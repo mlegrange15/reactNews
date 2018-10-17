@@ -15,6 +15,7 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
     const newArticle = new Article({
         title: req.body.title,
+        date: req.body.date,
         url: req.body.url
     });
     newArticle.save().then(article => res.json(article))

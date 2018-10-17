@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./Home.css";
+import API from "../utils/API";
 import axios from "axios";
 import {
   Container,
@@ -48,20 +49,32 @@ class Home extends Component {
       .then(res => {
         const data = res.data.response.docs;
 
-        const newArticle = {
-          headline: "",
-          date: "",
-          url: ""
-        };
+        let currentTop5 = [];
 
-        newArticle.headline = data.map(obj => obj.headline.main);
-        newArticle.date = data.map(obj => obj.pub_date);
-        newArticle.url = data.map(obj => obj.web_url);
+        for (let i = 0; i < data.length; i++) {
+          const newArticle = {
+            headline: data[i].headline.main,
+            date: data[i].pub_date,
+            url: data[i].web_url
+          };
 
-        console.log(newArticle);
-
-        this.setState({ currentTop5: newArticle });
+          currentTop5.push(newArticle);
+        }
+        this.setState({ currentTop5, topic: "", start: "", end: "" });
       });
+  };
+
+  handleArticleSave = (e, article) => {
+    e.preventDefault();
+    console.log(article);
+    
+    API.saveArticle({
+      title: article.headline,
+      date: article.date,
+      url: article.url
+     })
+      .then(res => "Saved!")
+      .catch(err => console.log(err));
   };
 
   render() {
@@ -112,17 +125,35 @@ class Home extends Component {
             </Button>
           </Form>
         </Card>
-        <Card body className="bg-dark text-white">
-          <CardTitle className="text-center">RESULTS</CardTitle>
-          <ListGroup>
-          {this.state.currentTop5.map(top5 => {
-                    return (
-                      <ListGroupItem>{top5.headline}</ListGroupItem>
-                    );
-                  })}
-            
-          </ListGroup>
-        </Card>
+
+        {!this.state.currentTop5.length ? (
+          <div />
+        ) : (
+          <Card body className="bg-dark">
+            <CardTitle className="text-center text-white">RESULTS</CardTitle>
+            <ListGroup className="text-black">
+              {this.state.currentTop5.map(article => {
+                return (
+                  <ListGroupItem
+                    key={article.headline}
+                    headline={article.headline}
+                    date={article.date}
+                    url={article.url}
+                  >
+                    {article.headline}
+                    <Button
+                      className="btn btn-danger float-right"
+                      id={article}
+                      onClick={ (e) => { this.handleArticleSave(e, article) } }
+                    >
+                      Save
+                    </Button>
+                  </ListGroupItem>
+                );
+              })}
+            </ListGroup>
+          </Card>
+        )}
       </Container>
     );
   }
