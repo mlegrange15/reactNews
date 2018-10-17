@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import "./Saved.css";
-import { Container } from "reactstrap";
+import { Container, Card, CardTitle } from "reactstrap";
 
 class Saved extends Component {
-  state = {};
   render() {
     return (
       <Container>
-        <h1>Saved Component</h1>
+        <Card body className="bg-dark text-white">
+          <CardTitle className="text-center">SAVED</CardTitle>
+        </Card>
       </Container>
     );
   }
