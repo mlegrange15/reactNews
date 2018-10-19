@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from 'react-router-dom'
 import "./Home.css";
 import API from "../utils/API";
 import axios from "axios";
@@ -67,13 +68,13 @@ class Home extends Component {
   handleArticleSave = (e, article) => {
     e.preventDefault();
     console.log(article);
-    
+
     API.saveArticle({
       title: article.headline,
       date: article.date,
       url: article.url
-     })
-      .then(res => "Saved!")
+    })
+      .then(res => "Saved")
       .catch(err => console.log(err));
   };
 
@@ -129,8 +130,9 @@ class Home extends Component {
         {!this.state.currentTop5.length ? (
           <div />
         ) : (
-          <Card body className="bg-dark">
+          <Card body className="bg-dark mb-5">
             <CardTitle className="text-center text-white">RESULTS</CardTitle>
+            <a href='/'><button className="btn btn-sm bg-light mb-3">Start New Search</button></a>
             <ListGroup className="text-black">
               {this.state.currentTop5.map(article => {
                 return (
@@ -141,13 +143,14 @@ class Home extends Component {
                     url={article.url}
                   >
                     {article.headline}
-                    <Button
-                      className="btn btn-danger float-right"
-                      id={article}
-                      onClick={ (e) => { this.handleArticleSave(e, article) } }
-                    >
-                      Save
-                    </Button>
+                      <Button
+                        className="btn btn-danger float-right"
+                        id={article}
+                        onClick={e => {
+                          this.handleArticleSave(e, article);
+                        }}
+                      ><Link to='/saved' className='text-white'>Save</Link>
+                      </Button>
                   </ListGroupItem>
                 );
               })}

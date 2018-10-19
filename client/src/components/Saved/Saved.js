@@ -20,8 +20,8 @@ class Saved extends Component {
         for (let i = 0; i < res.data.length; i++) {
           const savedArticle = {
             title: res.data[i].title,
-            date: res.data[i].title,
-            url: res.data[i].title,
+            date: res.data[i].date,
+            url: res.data[i].url,
           };
           savedArticles.push(savedArticle);
         }
@@ -35,21 +35,23 @@ class Saved extends Component {
       <Container>
         <Card body className="bg-dark">
           <CardTitle className="text-center text-white">SAVED</CardTitle>
+          <a href='/'><button className="btn btn-sm bg-light mb-3">Start New Search</button></a>
           <ListGroup className="text-black">
               {this.state.savedArticles.map(article => {
                 return (
                   <ListGroupItem
                     key={article.title}
                     title={article.title}
-                    date={article.date}
+                    date={JSON.stringify(article)}
                     url={article.url}
                   >
                     {article.title}
+                    <a href={article.url} target='_blank'><button className="btn btn-sm bg-dark text-white ml-3">Link</button></a>
                     <Button
                       className="btn btn-danger float-right"
                       id={article}
                     >
-                      DELETE
+                      Delete
                     </Button>
                   </ListGroupItem>
                 );
@@ -62,3 +64,4 @@ class Saved extends Component {
 }
 
 export default Saved;
+
