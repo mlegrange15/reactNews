@@ -100,7 +100,7 @@ class Home extends Component {
               </Col>
             </Row>
             <FormGroup>
-              <Label for="startYear">Start Year</Label>
+              <Label for="startYear">Start Date</Label>
               <Input
                 type="start"
                 name="start"
@@ -111,7 +111,7 @@ class Home extends Component {
               />
             </FormGroup>
             <FormGroup>
-              <Label for="endYear">End Year</Label>
+              <Label for="endYear">End Date</Label>
               <Input
                 type="end"
                 name="end"
